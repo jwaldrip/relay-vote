@@ -1,0 +1,59 @@
+{
+  "name": "relay-vote",
+  "version": "1.0.0",
+  "description": "A voting app in relay.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "debug": "node debug index.js",
+    "lint-fix": "eslint --fix --ext js --ext jsx .",
+    "lint": "eslint --ext js --ext jsx  .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwaldrip/relay-vote.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwaldrip/relay-vote/issues"
+  },
+  "homepage": "https://github.com/jwaldrip/relay-vote#readme",
+  "dependencies": {
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.14.0",
+    "compression": "^1.6.2",
+    "cors": "^2.8.1",
+    "css-loader": "^0.25.0",
+    "elemental": "^0.6.1",
+    "express-graphql": "^0.5.4",
+    "faker": "^3.1.0",
+    "file-loader": "^0.9.0",
+    "graphql": "^0.7.0",
+    "graphql-relay": "^0.4.3",
+    "imports-loader": "^0.6.5",
+    "lodash": "^4.16.1",
+    "node-sass": "^3.10.0",
+    "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-relay": "^0.9.3",
+    "relay": "^0.8.0-1",
+    "resolve-url-loader": "^1.6.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack-dev-middleware": "^1.8.2",
+    "webpack-dev-server": "^1.16.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.5.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-react": "^6.3.0"
+  }
+}
