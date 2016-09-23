@@ -3,7 +3,7 @@ import path from 'path';
 module.exports = {
   context: __dirname,
   entry: [
-    './app/index.jsx'
+    './app/app.js'
   ],
   resolve: {
     extensions: [ '', '.js', '.jsx' ]
@@ -15,7 +15,7 @@ module.exports = {
   output: {
     publcPath: '/assets/',
     path: path.join(__dirname, './public/assets'),
-    filename: 'index.js',
+    filename: 'app.js',
   },
   module: {
     loaders: [
@@ -24,7 +24,8 @@ module.exports = {
         loader: 'babel-loader',
         test: /\.(js|jsx|es6)$/,
         query: {
-          presets: [ 'es2015', 'stage-0', 'react' ]
+          presets: [ 'es2015', 'stage-0', 'react' ],
+          plugins: [ path.join(__dirname, 'build/babelRelayPlugin.js') ]
         }
       },
       {

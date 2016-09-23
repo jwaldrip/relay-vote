@@ -29,6 +29,9 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
+// Serve Static Assets
+app.use('/', express.static('public'));
+
 // Start the server
 const port = process.env.PORT || 8080;
 app.listen(port);
