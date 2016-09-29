@@ -2,7 +2,7 @@ import Model from './Model';
 
 export default class Vote extends Model {
   get candidate() {
-    const Candidate = require('./Candidate');
+    const { default: Candidate } = require('./Candidate');
     return Candidate.all().find(
       candidate => candidate.id === this.candidateId
     );
