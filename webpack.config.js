@@ -3,13 +3,13 @@ import path from 'path';
 module.exports = {
   context: __dirname,
   entry: [
-    './app/app.js'
+    './app/app.jsx',
   ],
   resolve: {
-    extensions: [ '', '.js', '.jsx' ]
+    extensions: ['', '.js', '.jsx'],
   },
   sassLoader: {
-    includePaths: [ path.resolve(__dirname, './node_modules') ]
+    includePaths: [path.resolve(__dirname, './node_modules')],
   },
   devtool: 'source-map',
   output: {
@@ -24,30 +24,30 @@ module.exports = {
         loader: 'babel-loader',
         test: /\.(js|jsx|es6)$/,
         query: {
-          presets: [ 'es2015', 'stage-0', 'react' ],
-          plugins: [ path.join(__dirname, 'build/babelRelayPlugin.js') ]
-        }
+          presets: ['es2015', 'stage-0', 'react'],
+          plugins: [path.join(__dirname, 'build/babelRelayPlugin.js')],
+        },
       },
       {
         test: /\.s?css$/,
-        loader: 'style!css!sass'
+        loader: 'style!css!sass',
       },
       {
         test: /\.(gif|jpe?g|png)/,
-        loader: 'url?limit=1000&mimetype=image/gif'
+        loader: 'url?limit=1000&mimetype=image/gif',
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url?limit=10000'
+        loader: 'url?limit=10000',
       },
       {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        loader: 'file'
+        loader: 'file',
       },
       {
         test: /bootstrap-sass\/assets\/javascripts\//,
-        loader: 'imports?jQuery=jquery'
-      }
-    ]
-  }
+        loader: 'imports?jQuery=jquery',
+      },
+    ],
+  },
 };

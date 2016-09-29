@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import * as Faker from 'faker';
-import Candidate from './graphql/models/candidate';
-import Vote from './graphql/models/vote';
+import Candidate from './graphql/models/Candidate';
+import Vote from './graphql/models/Vote';
 
 _.times(15, () => {
   const candidate = new Candidate();
   candidate.firstName = Faker.name.firstName();
   candidate.lastName = Faker.name.lastName();
+  candidate.emailAddress = Faker.internet.email();
   candidate.save();
 });
 

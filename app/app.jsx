@@ -1,8 +1,8 @@
 import React from 'react';
+import Relay from 'react-relay';
 import ReactDOM from 'react-dom';
 import CandidatesContainer from './containers/Candidates';
-import RootRoute from './relay-routes/candidates';
-import Relay from 'react-relay';
+import RootRoute from './relay-routes/root';
 
 ReactDOM.render(
   <Relay.RootContainer

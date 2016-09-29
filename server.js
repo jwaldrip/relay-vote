@@ -1,12 +1,13 @@
-import './seed';
 import cors from 'cors';
 import compression from 'compression';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-import schema from './graphql/schema.js';
 import webpack from 'webpack';
-import webpackConfig from './webpack.config';
 import webpackMiddleware from 'webpack-dev-middleware';
+
+import './seed';
+import schema from './graphql/schema';
+import webpackConfig from './webpack.config';
 
 const app = express();
 
@@ -16,8 +17,8 @@ app.use(compression());
 // Enable Cors
 app.use('/graphql', cors({
   origin: true,
-  methods: [ 'POST' ],
-  allowedHeaders: 'Authorization,Content-Type,Accept'
+  methods: ['POST'],
+  allowedHeaders: 'Authorization,Content-Type,Accept',
 }));
 
 // Serve Webpack
@@ -26,7 +27,7 @@ app.use('/assets', webpackMiddleware(webpack(webpackConfig)));
 // Serve GraphQL
 app.use('/graphql', graphqlHTTP({
   schema,
-  graphiql: true
+  graphiql: true,
 }));
 
 // Serve Static Assets

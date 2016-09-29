@@ -13,30 +13,51 @@ export default class Model {
   }
 
   static all() {
-    return [ ...this.instances ];
+    return [...this.instances];
   }
 
   static find(id) {
     return this.instances.find(i => i.id === id);
   }
 
-  static field(name) {
-    this.fields = this.fields || [];
-    this.fields.push(name);
+  static attrAccessor(name) {
+    this.attrGetter(name);
+    this.attrSetter(name);
+  }
+
+  static attrGetter(name) {
+    this.attrGetters = this.attrGetters || [];
+    this.attrGetters.push(name);
+  }
+
+  static attrSetter(name) {
+    this.attrSetters = this.attrSetters || [];
+    this.attrSetters.push(name);
   }
 
   constructor(attributes = {}) {
-    (this.constructor.fields || []).forEach(name => {
+    // Create Getters
+    (this.constructor.attrGetters || []).forEach((name) => {
       Object.defineProperty(this, name, {
         get: () => this.attributes[name],
-        set: value => {
+        enumerable: true,
+        configurable: true,
+      });
+    });
+
+    // Create Setters
+    (this.constructor.attrSetters || []).forEach((name) => {
+      Object.defineProperty(this, name, {
+        set: (value) => {
           this.attributes[name] = value;
           return value;
         },
         enumerable: true,
-        configurable: true
+        configurable: true,
       });
     });
+
+    // Attributes
     this.attributes = attributes;
     this.id = this.constructor.instances.length + 1;
     Object.freeze(this);
@@ -52,7 +73,7 @@ export default class Model {
   }
 
   delete() {
-    this.constructor._instances = this.constructor.instances.filter(
+    this.constructor.instances = this.constructor.instances.filter(
       instance => instance !== this
     );
   }

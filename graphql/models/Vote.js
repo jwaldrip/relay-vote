@@ -14,4 +14,4 @@ export default class Vote extends Model {
   }
 }
 
-Vote.field('candidateId');
+Vote.attrAccessor('candidateId');

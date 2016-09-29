@@ -8,12 +8,11 @@ export default new GraphQLObjectType({
   fields: () => ({
     id: globalIdField(),
     voterName: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     candidate: {
       type: Candidate,
-      resolve: vote => vote.candidate
-    }
+    },
   }),
-  interfaces: [ nodeInterface ]
+  interfaces: [nodeInterface],
 });

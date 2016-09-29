@@ -1,7 +1,6 @@
-import { GraphQLString, GraphQLObjectType, GraphQLInt } from 'graphql';
-import { connectionFromArray } from 'graphql-relay';
+import { GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLNonNull } from 'graphql';
+import { globalIdField, connectionFromArray } from 'graphql-relay';
 import { voteConnection } from '../connections/votes';
-import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from '../globalid';
 
 export default new GraphQLObjectType({
@@ -9,21 +8,27 @@ export default new GraphQLObjectType({
   fields: () => ({
     id: globalIdField(),
     fullName: {
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString),
     },
     firstName: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
     lastName: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    emailAddress: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    gravatar: {
+      type: new GraphQLNonNull(GraphQLString),
     },
     voteCount: {
-      type: GraphQLInt,
+      type: new GraphQLNonNull(GraphQLInt),
     },
     votes: {
       type: voteConnection,
-      resolve: (c, args) => connectionFromArray(c.votes, args)
-    }
+      resolve: (c, args) => connectionFromArray(c.votes, args),
+    },
   }),
-  interfaces: [ nodeInterface ]
+  interfaces: [nodeInterface],
 });

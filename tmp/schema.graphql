@@ -1,14 +1,17 @@
 schema {
   query: Root
+  mutation: Mutation
 }
 
 type Candidate implements Node {
   # The ID of an object
   id: ID!
-  fullName: String
-  firstName: String
-  lastName: String
-  voteCount: Int
+  fullName: String!
+  firstName: String!
+  lastName: String!
+  emailAddress: String!
+  gravatar: String!
+  voteCount: Int!
   votes: VoteConnection
 }
 
@@ -28,6 +31,23 @@ type CandidateEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+input CreateCandidateInput {
+  firstName: String!
+  lastName: String!
+  emailAddress: String!
+  clientMutationId: String
+}
+
+type CreateCandidatePayload {
+  createdCandidateEdge: CandidateEdge
+  root: Root
+  clientMutationId: String
+}
+
+type Mutation {
+  CreateCandidate(input: CreateCandidateInput!): CreateCandidatePayload
 }
 
 # An object with an ID
@@ -52,13 +72,16 @@ type PageInfo {
 }
 
 type Root {
+  root: Root!
+  id: String!
+
   # Fetches an object given its ID
   node(
     # The ID of an object
     id: ID!
   ): Node
-  candidates: CandidateConnection
-  votes: VoteConnection
+  candidates(after: String, first: Int, before: String, last: Int, order: [String]): CandidateConnection
+  votes(after: String, first: Int, before: String, last: Int): VoteConnection
 }
 
 type Vote implements Node {

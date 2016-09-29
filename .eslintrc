@@ -1,6 +1,5 @@
 {
   "parser": "babel-eslint",
-
   "plugins": [
     "babel",
     "react"
@@ -15,5 +14,13 @@
     "node": true,
     "browser": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "rules": {
+    "react/prop-types": ["error", { ignore: ["relay"] }],
+    "import/newline-after-import": 0,
+    "import/no-dynamic-require": 0,
+    "import/prefer-default-export": 0,
+    "class-methods-use-this": ["error", { "exceptMethods": ["getFatQuery", "getMutation"] }],
+    "global-require": 0,
+  },
+  "extends": ["airbnb"]
 }
