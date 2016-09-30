@@ -4,10 +4,28 @@ import ReactDOM from 'react-dom';
 import CandidatesContainer from './containers/Candidates';
 import RootRoute from './relay-routes/root';
 
+const App = () => (
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <Relay.RootContainer
+            Component={CandidatesContainer}
+            route={new RootRoute()}
+          />
+        </td>
+        {/* <td>
+          <Relay.RootContainer
+            Component={CandidatesContainer}
+            route={new RootRoute()}
+          />
+        </td> */}
+      </tr>
+    </tbody>
+  </table>
+);
+
 ReactDOM.render(
-  <Relay.RootContainer
-    Component={CandidatesContainer}
-    route={new RootRoute()}
-  />,
+  <App />,
   document.getElementById('root')
 );

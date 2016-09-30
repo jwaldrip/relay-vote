@@ -1,7 +1,9 @@
+import Cookies from 'js-cookie';
 import React from 'react';
 import PropTypes from '../helpers/PropTypes';
 import CandidateForm from './CandidateForm';
 import CreateCandidateMutation from '../mutations/CreateCandidate';
+import CreateVoteMutation from '../mutations/CreateVote';
 
 export default class Candidates extends React.Component {
 
@@ -22,10 +24,25 @@ export default class Candidates extends React.Component {
     );
   }
 
+  buildHandleVote = candidateId => () => {
+    this.props.relay.commitUpdate(
+      new CreateVoteMutation({ candidateId }),
+      { onSuccess: () => Cookies.set('voted', true, { expires: 10 }) }
+    );
+  }
+  renderVoteButton(candidateId) {
+    const voted = false; // !!Cookies.get('voted');
+    return (
+      <button onClick={this.buildHandleVote(candidateId)} disabled={voted}>Vote!</button>
+    );
+  }
+
   renderCandidates() {
     const { candidates } = this.props.root;
     return candidates.edges.map(({ node: candidate }) => (
       <li key={candidate.id}>
+        {this.renderVoteButton(candidate.id)}
+        &nbsp;
         <img alt="avatar" src={`${candidate.gravatar}?s=20`} />
         &nbsp;
         {candidate.fullName} &mdash; {candidate.voteCount} vote(s)

@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class LikeStoryMutation extends Relay.Mutation {
+export default class CreateCandidateMutation extends Relay.Mutation {
 
   getMutation() {
     return Relay.QL`mutation { CreateCandidate }`;
