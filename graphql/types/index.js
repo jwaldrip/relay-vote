@@ -1,4 +1,4 @@
-import { connectionArgs, connectionFromArray } from 'graphql-relay';
+import { globalIdField, connectionArgs, connectionFromArray } from 'graphql-relay';
 import { GraphQLList, GraphQLObjectType, GraphQLNonNull, GraphQLString } from 'graphql';
 import sortBy from 'sort-by';
 
@@ -6,19 +6,17 @@ import Candidate from '../models/Candidate';
 import Vote from '../models/Vote';
 import { candidateConnection } from '../connections/candidates';
 import { voteConnection } from '../connections/votes';
-import { nodeField } from '../globalid';
+import { nodeField, nodeInterface } from '../globalid';
 
-const RootType = new GraphQLObjectType({
+const Root = new GraphQLObjectType({
   name: 'Root',
+  interfaces: [nodeInterface],
   fields: () => ({
     root: {
-      type: new GraphQLNonNull(RootType),
-      resolve: () => ({}),
+      type: new GraphQLNonNull(Root),
+      resolve: () => ({ id: 'ROOT' }),
     },
-    id: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve: () => 'ROOT',
-    },
+    id: globalIdField(),
     node: nodeField,
     candidates: {
       args: {
@@ -42,4 +40,4 @@ const RootType = new GraphQLObjectType({
   }),
 });
 
-export default RootType;
+export default Root;

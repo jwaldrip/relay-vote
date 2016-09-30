@@ -1,11 +1,11 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import PropTypes from '../helpers/PropTypes';
-import CandidateForm from './CandidateForm';
+import CandidateFormContainer from './CandidateForm';
 import CreateCandidateMutation from '../mutations/CreateCandidate';
 import CreateVoteMutation from '../mutations/CreateVote';
 
-export default class Candidates extends React.Component {
+export default class CandidatesComponent extends React.Component {
 
   static propTypes = {
     root: PropTypes.shape({
@@ -54,7 +54,7 @@ export default class Candidates extends React.Component {
     return (
       <div>
         <h1>Candidates</h1>
-        <CandidateForm handleAdd={this.handleAdd} />
+        <CandidateFormContainer handleAdd={this.handleAdd} />
         <ul>
           {this.renderCandidates()}
         </ul>

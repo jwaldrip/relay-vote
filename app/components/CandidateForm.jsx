@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class CandidateForm extends React.Component {
+export default class CandidateFormComponent extends React.Component {
   static propTypes = {
     handleAdd: React.PropTypes.func.isRequired,
   }
