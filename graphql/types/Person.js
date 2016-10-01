@@ -1,10 +1,10 @@
 import { GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLNonNull } from 'graphql';
 import { globalIdField, connectionFromArray } from 'graphql-relay';
-import { voteConnection } from '../connections/votes';
+import { votesConnection } from '../connections/votes';
 import { nodeInterface } from '../globalid';
 
 export default new GraphQLObjectType({
-  name: 'Candidate',
+  name: 'Person',
   fields: () => ({
     id: globalIdField(),
     fullName: {
@@ -26,7 +26,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLInt),
     },
     votes: {
-      type: voteConnection,
+      type: votesConnection,
       resolve: (c, args) => connectionFromArray(c.votes, args),
     },
   }),

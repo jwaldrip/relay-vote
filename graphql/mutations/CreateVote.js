@@ -1,9 +1,9 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId, fromGlobalId, cursorForObjectInConnection } from 'graphql-relay';
 import Vote from '../models/Vote';
-import Candidate from '../models/Candidate';
-import { voteEdge } from '../connections/votes';
-import CandidateType from '../types/Candidate';
+import Person from '../models/Person';
+import { votesEdge } from '../connections/votes';
+import PersonType from '../types/Person';
 
 export default mutationWithClientMutationId({
   name: 'CreateVote',
@@ -14,21 +14,21 @@ export default mutationWithClientMutationId({
   },
   outputFields: {
     createdVoteEdge: {
-      type: voteEdge,
+      type: votesEdge,
       resolve: ({ vote }) => ({
         cursor: cursorForObjectInConnection(Vote.all(), vote),
         node: vote,
       }),
     },
     candidate: {
-      type: CandidateType,
+      type: PersonType,
     },
   },
   mutateAndGetPayload: ({ candidateId }) => {
     // TODO: Validate type
     const { id } = fromGlobalId(candidateId);
     const vote = new Vote();
-    vote.candidate = Candidate.find(parseInt(id, 10));
+    vote.candidate = Person.find(parseInt(id, 10));
     vote.save();
     return { vote, candidate: vote.candidate };
   },

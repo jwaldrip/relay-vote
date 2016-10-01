@@ -1,8 +1,7 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import PropTypes from '../helpers/PropTypes';
-import CandidateFormContainer from './CandidateForm';
-import CreateCandidateMutation from '../mutations/CreateCandidate';
+// import CreateCandidateMutation from '../mutations/CreateCandidate';
 import CreateVoteMutation from '../mutations/CreateVote';
 
 export default class CandidatesComponent extends React.Component {
@@ -18,11 +17,11 @@ export default class CandidatesComponent extends React.Component {
     }),
   }
 
-  handleAdd = (attrs = {}) => {
-    this.props.relay.commitUpdate(
-      new CreateCandidateMutation(attrs)
-    );
-  }
+  // handleAdd = (attrs = {}) => {
+  //   this.props.relay.commitUpdate(
+  //     new CreateCandidateMutation(attrs)
+  //   );
+  // }
 
   buildHandleVote = candidateId => () => {
     this.props.relay.commitUpdate(
@@ -54,7 +53,6 @@ export default class CandidatesComponent extends React.Component {
     return (
       <div>
         <h1>Candidates</h1>
-        <CandidateFormContainer handleAdd={this.handleAdd} />
         <ul>
           {this.renderCandidates()}
         </ul>

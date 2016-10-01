@@ -1,17 +1,14 @@
-import { GraphQLString, GraphQLObjectType } from 'graphql';
+import { GraphQLObjectType } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import Candidate from './Candidate';
+import Person from './Person';
 import { nodeInterface } from '../globalid';
 
 export default new GraphQLObjectType({
   name: 'Vote',
   fields: () => ({
     id: globalIdField(),
-    voterName: {
-      type: GraphQLString,
-    },
     candidate: {
-      type: Candidate,
+      type: Person,
     },
   }),
   interfaces: [nodeInterface],

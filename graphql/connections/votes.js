@@ -1,6 +1,6 @@
 import { connectionDefinitions } from 'graphql-relay';
 import nodeType from '../types/Vote';
 
-const { connectionType: voteConnection, edgeType: voteEdge } =
+const { connectionType: votesConnection, edgeType: votesEdge } =
 connectionDefinitions({ nodeType });
-export { voteConnection, voteEdge };
+export { votesConnection, votesEdge };

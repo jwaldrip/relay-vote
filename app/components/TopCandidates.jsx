@@ -15,8 +15,7 @@ export default class TopCandidatesComponent extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: replace with subscriptions
-    // setTimeout(() => this.props.relay.forceFetch(), 3000);
+    setInterval(this.props.relay.forceFetch, 1000);
   }
 
   renderCandidates() {

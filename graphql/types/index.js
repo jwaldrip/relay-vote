@@ -2,10 +2,10 @@ import { globalIdField, connectionArgs, connectionFromArray } from 'graphql-rela
 import { GraphQLList, GraphQLObjectType, GraphQLNonNull, GraphQLString } from 'graphql';
 import sortBy from 'sort-by';
 
-import Candidate from '../models/Candidate';
+import Person from '../models/Person';
 import Vote from '../models/Vote';
-import { candidateConnection } from '../connections/candidates';
-import { voteConnection } from '../connections/votes';
+import { peopleConnection } from '../connections/people';
+import { votesConnection } from '../connections/votes';
 import { nodeField, nodeInterface } from '../globalid';
 
 const Root = new GraphQLObjectType({
@@ -18,6 +18,24 @@ const Root = new GraphQLObjectType({
     },
     id: globalIdField(),
     node: nodeField,
+    voters: {
+      args: {
+        ...connectionArgs,
+        order: {
+          type: new GraphQLList(GraphQLString),
+        },
+      },
+      type: peopleConnection,
+      resolve: (parent, args) => {
+        const sortByOpts = args.order || ['id'];
+        const people = Person.all().filter(
+          person => person.voted
+        ).sort(
+          sortBy(...sortByOpts)
+        );
+        return connectionFromArray(people, args);
+      },
+    },
     candidates: {
       args: {
         ...connectionArgs,
@@ -25,16 +43,16 @@ const Root = new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      type: candidateConnection,
+      type: peopleConnection,
       resolve: (parent, args) => {
         const sortByOpts = args.order || ['id'];
-        const candidates = Candidate.all().sort(sortBy(...sortByOpts));
+        const candidates = Person.all().sort(sortBy(...sortByOpts));
         return connectionFromArray(candidates, args);
       },
     },
     votes: {
       args: connectionArgs,
-      type: voteConnection,
+      type: votesConnection,
       resolve: (parent, args) => connectionFromArray(Vote.all(), args),
     },
   }),

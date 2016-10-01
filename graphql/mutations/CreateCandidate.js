@@ -1,7 +1,7 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId, cursorForObjectInConnection } from 'graphql-relay';
-import Candidate from '../models/Candidate';
-import { candidateEdge } from '../connections/candidates';
+import Person from '../models/Person';
+import { peopleEdge } from '../connections/people';
 import RootType from '../types';
 
 export default mutationWithClientMutationId({
@@ -19,9 +19,9 @@ export default mutationWithClientMutationId({
   },
   outputFields: {
     createdCandidateEdge: {
-      type: candidateEdge,
+      type: peopleEdge,
       resolve: ({ candidate }) => ({
-        cursor: cursorForObjectInConnection(Candidate.all(), candidate),
+        cursor: cursorForObjectInConnection(Person.all(), candidate),
         node: candidate,
       }),
     },
@@ -31,7 +31,7 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: (attributes) => {
-    const candidate = new Candidate(attributes);
+    const candidate = new Person(attributes);
     candidate.save();
     return { candidate };
   },
